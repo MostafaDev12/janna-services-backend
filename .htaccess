@@ -1,12 +1,8 @@
-# Block direct HTTP access to dotfiles, env, composer, etc.
-<FilesMatch "^\.|composer\.(json|lock)$|package(-lock)?\.json$|artisan$|phpunit\.xml$">
+# Block direct HTTP access to dotfiles, env, composer, artisan, etc.
+# Only matches against the file *name*, so /something/.env and /.env are both blocked.
+<FilesMatch "^\.|^composer\.(json|lock)$|^package(-lock)?\.json$|^artisan$|^phpunit\.xml$">
     Require all denied
 </FilesMatch>
-
-# Block any direct access to the storage/ and bootstrap/cache/ dirs.
-RedirectMatch 403 ^/storage/(?!app/public/).*$
-RedirectMatch 403 ^/bootstrap/cache/.*$
-RedirectMatch 403 ^/(app|config|database|resources|routes|tests|vendor)(/|$)
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
@@ -14,21 +10,21 @@ RedirectMatch 403 ^/(app|config|database|resources|routes|tests|vendor)(/|$)
     # Hide the /public segment from the URL. Used when the subdomain's
     # document root points at the project root instead of public/.
     #
-    # Two rules:
-    #  1. If the request path doesn't already start with public/, rewrite it
-    #     internally so the real file lookup happens inside public/.
-    #  2. If someone hits a path that doesn't map to a real file or directory,
-    #     hand the request to public/index.php (Laravel's front controller).
+    # If the request path doesn't already start with public/, rewrite it
+    # internally so the real file lookup happens inside public/. Everything
+    # is funneled through public/, so the project's source folders
+    # (app/, config/, database/, …) are effectively unreachable from the web
+    # without any extra blocking rules — Apache will just 404 because the
+    # rewritten path public/app/Foo.php doesn't exist.
     #
-    # If your host lets you set the subdomain's document root directly to the
-    # public/ folder (cPanel: Subdomains → Document Root), use that instead
-    # and delete this file — it's faster (no extra rewrite hop) and a tiny
-    # bit safer (project files outside public/ are then unreachable over HTTP).
+    # Note: /storage/<path> URLs work because public/storage is a symlink
+    # to storage/app/public created by `php artisan storage:link`. After
+    # rewriting they become public/storage/<path> → the symlinked file.
+    #
+    # If your host lets you set the subdomain's document root directly to
+    # public/, use that instead (cPanel: Subdomains → Document Root) and
+    # delete this file — faster and a tiny bit safer.
 
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
-
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ public/index.php [L]
 </IfModule>
