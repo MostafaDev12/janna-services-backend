@@ -1,0 +1,34 @@
+# Block direct HTTP access to dotfiles, env, composer, etc.
+<FilesMatch "^\.|composer\.(json|lock)$|package(-lock)?\.json$|artisan$|phpunit\.xml$">
+    Require all denied
+</FilesMatch>
+
+# Block any direct access to the storage/ and bootstrap/cache/ dirs.
+RedirectMatch 403 ^/storage/(?!app/public/).*$
+RedirectMatch 403 ^/bootstrap/cache/.*$
+RedirectMatch 403 ^/(app|config|database|resources|routes|tests|vendor)(/|$)
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Hide the /public segment from the URL. Used when the subdomain's
+    # document root points at the project root instead of public/.
+    #
+    # Two rules:
+    #  1. If the request path doesn't already start with public/, rewrite it
+    #     internally so the real file lookup happens inside public/.
+    #  2. If someone hits a path that doesn't map to a real file or directory,
+    #     hand the request to public/index.php (Laravel's front controller).
+    #
+    # If your host lets you set the subdomain's document root directly to the
+    # public/ folder (cPanel: Subdomains → Document Root), use that instead
+    # and delete this file — it's faster (no extra rewrite hop) and a tiny
+    # bit safer (project files outside public/ are then unreachable over HTTP).
+
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ public/index.php [L]
+</IfModule>
