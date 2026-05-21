@@ -30,6 +30,14 @@ Route::get('/important-numbers', [WebImportantNumberController::class, 'index'])
 
 /*
 |--------------------------------------------------------------------------
+| Legal pages (public — required for Google Play submission)
+|--------------------------------------------------------------------------
+*/
+Route::view('/terms-and-conditions', 'legal.terms')->name('legal.terms');
+Route::view('/privacy-policy',       'legal.privacy')->name('legal.privacy');
+
+/*
+|--------------------------------------------------------------------------
 | Authentication
 |--------------------------------------------------------------------------
 */

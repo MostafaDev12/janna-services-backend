@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(flutter analyze *)"
+      "Bash(flutter analyze *)",
+      "Bash(curl -ks -o /dev/null -w \"%{http_code}\" \"https://janna-services-backend.test/storage/banners/AEmOod1xkP2BiaIsovpyhyfGFwn6n14fbg6h9CuR.png\")"
     ]
   }
 }
