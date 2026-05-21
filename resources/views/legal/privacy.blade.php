@@ -208,9 +208,8 @@
                 <h2>14. تواصل معنا</h2>
                 <p>إذا كان لديك أي أسئلة أو طلبات أو مخاوف حول سياسة الخصوصية هذه أو بياناتك، يُرجى التواصل معنا:</p>
                 <ul>
-                    <li>البريد الإلكتروني: <a href="mailto:support@jannaservices.com">support@jannaservices.com</a></li>
-                    <li>الموقع الإلكتروني: <a href="https://jannaservices.com" target="_blank" rel="noopener">https://jannaservices.com</a></li>
-                </ul>
+                    <li>البريد الإلكتروني: <a href="mailto:mostafa@vowalaa.com">mostafa@vowalaa.com</a></li>
+                 </ul>
             @else
                 <div class="legal-intro">
                     <strong>Janna Services</strong> ("we", "our", or "the App") is a community services directory that helps users discover service providers, categories, important numbers, banners, and offers. This Privacy Policy explains what information the App may collect, how it is used, and the choices available to you. By using the App, you agree to the practices described below.
@@ -277,9 +276,8 @@
                 <h2>14. Contact Us</h2>
                 <p>If you have any questions, requests, or concerns about this Privacy Policy or your data, please contact us:</p>
                 <ul>
-                    <li>Email: <a href="mailto:support@jannaservices.com">support@jannaservices.com</a></li>
-                    <li>Website: <a href="https://jannaservices.com" target="_blank" rel="noopener">https://jannaservices.com</a></li>
-                </ul>
+                    <li>Email: <a href="mailto:mostafa@vowalaa.com">mostafa@vowalaa.com</a></li>
+                 </ul>
             @endif
         </article>
 
