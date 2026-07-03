@@ -169,6 +169,21 @@
                 <a href="{{ route('web.important-numbers') }}" class="text-light">{{ __('messages.important_numbers') }}</a>
                 &nbsp;·&nbsp;
                 <a href="{{ route('web.categories.index') }}" class="text-light">{{ __('messages.categories') }}</a>
+                @if ($settings->google_play_url)
+                    <div class="mt-3">
+                        <a href="{{ $settings->google_play_url }}" target="_blank" rel="noopener"
+                           aria-label="{{ __('messages.get_it_on_google_play') }}">
+                            <img src="https://play.google.com/intl/{{ $isRtl ? 'ar' : 'en_us' }}/badges/static/images/badges/{{ $isRtl ? 'ar' : 'en' }}_badge_web_generic.png"
+                                 alt="{{ __('messages.get_it_on_google_play') }}" style="height:56px;width:auto">
+                        </a>
+                    </div>
+                @elseif ($settings->apk_url)
+                    <div class="mt-3">
+                        <a href="{{ $settings->apk_url }}" class="btn btn-light btn-sm fw-semibold" download>
+                            <i class="bi bi-android2"></i> {{ __('messages.download_apk') }}
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
         <hr class="text-secondary">

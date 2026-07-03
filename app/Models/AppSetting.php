@@ -22,6 +22,8 @@ class AppSetting extends Model
         'icon',
         'primary_color',
         'secondary_color',
+        'google_play_url',
+        'apk',
     ];
 
     /**
@@ -44,5 +46,10 @@ class AppSetting extends Model
     public function getIconUrlAttribute(): ?string
     {
         return $this->icon ? asset('storage/'.$this->icon) : null;
+    }
+
+    public function getApkUrlAttribute(): ?string
+    {
+        return $this->apk ? asset('storage/'.$this->apk) : null;
     }
 }

@@ -23,6 +23,17 @@ class AppSettingRequest extends FormRequest
             // `#RRGGBB` or `#RGB`. Empty = clear the color.
             'primary_color'   => ['nullable', 'string', 'regex:/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/'],
             'secondary_color' => ['nullable', 'string', 'regex:/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/'],
+            'google_play_url' => ['nullable', 'url', 'max:255'],
+            // APK upload. Guessed mime types for .apk are unreliable, so we
+            // validate on the client extension instead. 100 MB ceiling.
+            'apk'             => [
+                'nullable', 'file', 'max:102400',
+                function (string $attribute, $value, \Closure $fail): void {
+                    if ($value && strtolower($value->getClientOriginalExtension()) !== 'apk') {
+                        $fail('The app file must be an .apk file.');
+                    }
+                },
+            ],
         ];
     }
 }

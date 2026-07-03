@@ -8,15 +8,20 @@ use Illuminate\Http\Request;
 /// Resolves the request locale from (in order):
 ///   1. `?lang=` query parameter
 ///   2. session value (web only — persists across browser navigation)
-///   3. `Accept-Language` header (mobile / API clients)
-///   4. default `en`
+///   3. `Accept-Language` header (mobile / API clients only — see below)
+///   4. default `ar`
+///
+/// Arabic is the default UI language. Stateful web requests deliberately skip
+/// the `Accept-Language` step so the website always opens in Arabic on a first
+/// visit (until the user switches with the language toggle). Stateless API /
+/// mobile clients still get their device language via the header.
 ///
 /// The resolved locale is applied via `app()->setLocale()` so trans() and
 /// `$model->localized('name')` both pick the same language.
 class SetLocale
 {
     public const SUPPORTED = ['en', 'ar'];
-    public const DEFAULT  = 'en';
+    public const DEFAULT  = 'ar';
 
     public function handle(Request $request, Closure $next)
     {
@@ -44,9 +49,11 @@ class SetLocale
             }
         }
 
-        // 3. Accept-Language header (mobile app, browser).
+        // 3. Accept-Language header — only for stateless (API / mobile)
+        //    clients. Web requests fall straight through to the Arabic default
+        //    so the site always opens in Arabic on a first visit.
         $accept = strtolower((string) $request->header('Accept-Language', ''));
-        if ($accept !== '') {
+        if (! $request->hasSession() && $accept !== '') {
             // Match the FIRST preference: "ar,en;q=0.9" -> "ar"
             $first = trim(explode(',', $accept)[0] ?? '');
             $tag = explode('-', $first)[0] ?? '';

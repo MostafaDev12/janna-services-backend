@@ -59,4 +59,6 @@ return [
     // Misc
     'footer_tagline'    => 'Your community services directory.',
     'home_breadcrumb'   => 'Home',
+    'get_it_on_google_play' => 'Get it on Google Play',
+    'download_apk'          => 'Download the app (APK)',
 ];

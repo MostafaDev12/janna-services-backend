@@ -16,6 +16,8 @@ class AppSettingResource extends JsonResource
             'icon_url'        => $this->icon_url,
             'primary_color'   => $this->primary_color,
             'secondary_color' => $this->secondary_color,
+            'google_play_url' => $this->google_play_url,
+            'apk_url'         => $this->apk_url,
         ];
     }
 }

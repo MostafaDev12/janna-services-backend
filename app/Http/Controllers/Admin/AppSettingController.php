@@ -39,6 +39,12 @@ class AppSettingController extends Controller
             if ($settings->icon) Storage::disk('public')->delete($settings->icon);
             $data['icon'] = $request->file('icon')->store('settings', 'public');
         }
+        if ($request->hasFile('apk')) {
+            if ($settings->apk) Storage::disk('public')->delete($settings->apk);
+            // Keep the .apk extension so the direct download link serves a
+            // valid installer file name.
+            $data['apk'] = $request->file('apk')->storeAs('settings', 'app-'.time().'.apk', 'public');
+        }
 
         $settings->update($data);
 
@@ -59,5 +65,13 @@ class AppSettingController extends Controller
         if ($s->icon) Storage::disk('public')->delete($s->icon);
         $s->update(['icon' => null]);
         return back()->with('success', 'Icon removed.');
+    }
+
+    public function clearApk(): RedirectResponse
+    {
+        $s = AppSetting::current();
+        if ($s->apk) Storage::disk('public')->delete($s->apk);
+        $s->update(['apk' => null]);
+        return back()->with('success', 'APK removed.');
     }
 }

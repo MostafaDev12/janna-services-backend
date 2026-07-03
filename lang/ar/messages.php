@@ -59,4 +59,6 @@ return [
     // Misc
     'footer_tagline'    => 'دليل خدمات الكمبوند الخاص بك.',
     'home_breadcrumb'   => 'الرئيسية',
+    'get_it_on_google_play' => 'تحميل من Google Play',
+    'download_apk'          => 'تحميل التطبيق (APK)',
 ];

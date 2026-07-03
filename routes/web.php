@@ -79,4 +79,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::put('settings',  [AdminAppSettingController::class, 'update'])->name('settings.update');
     Route::delete('settings/logo', [AdminAppSettingController::class, 'clearLogo'])->name('settings.logo.clear');
     Route::delete('settings/icon', [AdminAppSettingController::class, 'clearIcon'])->name('settings.icon.clear');
+    Route::delete('settings/apk',  [AdminAppSettingController::class, 'clearApk'])->name('settings.apk.clear');
 });

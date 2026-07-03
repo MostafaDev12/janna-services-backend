@@ -64,6 +64,29 @@
                     <input type="text" name="secondary_color" class="form-control" placeholder="#F2A11F" value="{{ old('secondary_color', $settings->secondary_color) }}">
                     <small class="text-muted">Hex (#RRGGBB).</small>
                 </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Google Play link</label>
+                    <input type="url" name="google_play_url" class="form-control" placeholder="https://play.google.com/store/apps/details?id=..." value="{{ old('google_play_url', $settings->google_play_url) }}">
+                    <small class="text-muted">Shows a "Get it on Google Play" badge in the website footer. Leave empty to hide it.</small>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">App APK (direct download)</label>
+                    <input type="file" name="apk" class="form-control" accept=".apk,application/vnd.android.package-archive">
+                    <small class="text-muted">Fallback download until the app is live on Google Play. Used only when no Google Play link is set. Max 100&nbsp;MB.</small>
+                    @if ($settings->apk)
+                        <div class="mt-2 d-flex align-items-center gap-2">
+                            <a href="{{ $settings->apk_url }}" class="btn btn-sm btn-outline-secondary" download>
+                                <i class="bi bi-android2"></i> Download current APK
+                            </a>
+                            <form action="{{ route('admin.settings.apk.clear') }}" method="POST" onsubmit="return confirm('Remove current APK?')">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Remove</button>
+                            </form>
+                        </div>
+                    @endif
+                </div>
             </div>
 
             <div class="mt-4">
