@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ImportantNumberController as AdminImportantNumberController;
 use App\Http\Controllers\Admin\ProviderMediaController as AdminProviderMediaController;
 use App\Http\Controllers\Admin\ServiceProviderController as AdminServiceProviderController;
+use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\CategoryController as WebCategoryController;
+use App\Http\Controllers\Web\ContactMessageController as WebContactMessageController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\ImportantNumberController as WebImportantNumberController;
 use App\Http\Controllers\Web\ProviderController as WebProviderController;
@@ -27,6 +29,7 @@ Route::get('/providers', [WebProviderController::class, 'index'])->name('web.pro
 Route::get('/providers/{slug}', [WebProviderController::class, 'show'])->name('web.providers.show');
 Route::get('/search', WebSearchController::class)->name('web.search');
 Route::get('/important-numbers', [WebImportantNumberController::class, 'index'])->name('web.important-numbers');
+Route::post('/contact-message', [WebContactMessageController::class, 'store'])->name('web.contact.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -80,4 +83,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::delete('settings/logo', [AdminAppSettingController::class, 'clearLogo'])->name('settings.logo.clear');
     Route::delete('settings/icon', [AdminAppSettingController::class, 'clearIcon'])->name('settings.icon.clear');
     Route::delete('settings/apk',  [AdminAppSettingController::class, 'clearApk'])->name('settings.apk.clear');
+
+    Route::get('messages',            [AdminContactMessageController::class, 'index'])->name('messages.index');
+    Route::get('messages/{message}',  [AdminContactMessageController::class, 'show'])->name('messages.show');
+    Route::delete('messages/{message}', [AdminContactMessageController::class, 'destroy'])->name('messages.destroy');
 });

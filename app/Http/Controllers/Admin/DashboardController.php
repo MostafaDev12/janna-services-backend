@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\ContactMessage;
 use App\Models\ImportantNumber;
 use App\Models\ProviderMedia;
 use App\Models\ServiceProvider;
@@ -21,6 +22,7 @@ class DashboardController extends Controller
             'media'             => ProviderMedia::count(),
             'important_numbers' => ImportantNumber::count(),
             'banners'           => Banner::count(),
+            'unread_messages'   => ContactMessage::unread()->count(),
         ];
 
         $latestProviders = ServiceProvider::with('category')->latest()->take(5)->get();

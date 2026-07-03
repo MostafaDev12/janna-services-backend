@@ -61,4 +61,13 @@ return [
     'home_breadcrumb'   => 'Home',
     'get_it_on_google_play' => 'Get it on Google Play',
     'download_apk'          => 'Download the app (APK)',
+
+    // Floating message / contact widget
+    'contact_us'            => 'Send us a message',
+    'contact_name'          => 'Your name (optional)',
+    'contact_reply'         => 'Phone or email (optional)',
+    'contact_title'         => 'Subject',
+    'contact_message'       => 'Message',
+    'contact_send'          => 'Send',
+    'contact_sent'          => 'Thanks! Your message has been sent.',
 ];

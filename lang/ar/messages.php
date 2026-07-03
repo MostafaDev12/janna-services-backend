@@ -61,4 +61,13 @@ return [
     'home_breadcrumb'   => 'الرئيسية',
     'get_it_on_google_play' => 'تحميل من Google Play',
     'download_apk'          => 'تحميل التطبيق (APK)',
+
+    // Floating message / contact widget
+    'contact_us'            => 'أرسل لنا رسالة',
+    'contact_name'          => 'اسمك (اختياري)',
+    'contact_reply'         => 'هاتف أو بريد إلكتروني (اختياري)',
+    'contact_title'         => 'الموضوع',
+    'contact_message'       => 'الرسالة',
+    'contact_send'          => 'إرسال',
+    'contact_sent'          => 'شكرًا لك! تم إرسال رسالتك.',
 ];

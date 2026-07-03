@@ -15,6 +15,13 @@
     <a href="{{ route('admin.banners.index') }}" class="{{ request()->routeIs('admin.banners.*') ? 'active' : '' }}">
         <i class="bi bi-image"></i> Banners
     </a>
+    @php $unreadMessages = \App\Models\ContactMessage::unread()->count(); @endphp
+    <a href="{{ route('admin.messages.index') }}" class="d-flex align-items-center {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
+        <span><i class="bi bi-chat-dots"></i> Messages</span>
+        @if ($unreadMessages > 0)
+            <span class="badge bg-danger ms-auto">{{ $unreadMessages }}</span>
+        @endif
+    </a>
     <a href="{{ route('admin.settings.edit') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
         <i class="bi bi-gear"></i> App settings
     </a>

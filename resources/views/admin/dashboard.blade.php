@@ -10,18 +10,21 @@
         ['label' => 'Media', 'value' => $stats['media'], 'icon' => 'images', 'color' => 'info'],
         ['label' => 'Important Numbers', 'value' => $stats['important_numbers'], 'icon' => 'telephone', 'color' => 'danger'],
         ['label' => 'Banners', 'value' => $stats['banners'], 'icon' => 'image', 'color' => 'dark'],
+        ['label' => 'Unread Messages', 'value' => $stats['unread_messages'], 'icon' => 'chat-dots', 'color' => 'primary', 'route' => route('admin.messages.index')],
     ]; @endphp
     @foreach ($cards as $c)
         <div class="col-md-4 col-lg-2">
-            <div class="card card-stat p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-muted small">{{ $c['label'] }}</div>
-                        <div class="num">{{ $c['value'] }}</div>
+            <a href="{{ $c['route'] ?? '#' }}" class="text-decoration-none text-reset {{ isset($c['route']) ? '' : 'pe-none' }}">
+                <div class="card card-stat p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted small">{{ $c['label'] }}</div>
+                            <div class="num">{{ $c['value'] }}</div>
+                        </div>
+                        <i class="bi bi-{{ $c['icon'] }} fs-2 text-{{ $c['color'] }}"></i>
                     </div>
-                    <i class="bi bi-{{ $c['icon'] }} fs-2 text-{{ $c['color'] }}"></i>
                 </div>
-            </div>
+            </a>
         </div>
     @endforeach
 </div>
